@@ -3,7 +3,49 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayCollector.Gui.Wpf", "PlayCollector.Gui.Wpf\PlayCollector.Gui.Wpf.csproj", "{E5C718EC-54B4-4F64-AABE-D44F3EF4DCF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayCollector.Business", "PlayCollector.Business\PlayCollector.Business.csproj", "{62D8BC97-98D7-4FF4-8790-AE12339ADC5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayCollector.Business.Model", "PlayCollector.Business.Model\PlayCollector.Business.Model.csproj", "{726339F6-DFC5-479B-B0BD-454751B32168}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayCollector.Helper", "PlayCollector.Helper\PlayCollector.Helper.csproj", "{BDE7A600-42E8-41E9-8F38-51C7661B79D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayCollector.Repository", "PlayCollector.Repository\PlayCollector.Repository.csproj", "{80458551-C8AE-4648-8BFD-EF718B795341}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayCollector.Test", "PlayCollector.Test\PlayCollector.Test.csproj", "{8295F5E9-8324-404A-A84C-08339FF393E8}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5C718EC-54B4-4F64-AABE-D44F3EF4DCF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5C718EC-54B4-4F64-AABE-D44F3EF4DCF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5C718EC-54B4-4F64-AABE-D44F3EF4DCF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5C718EC-54B4-4F64-AABE-D44F3EF4DCF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62D8BC97-98D7-4FF4-8790-AE12339ADC5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62D8BC97-98D7-4FF4-8790-AE12339ADC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62D8BC97-98D7-4FF4-8790-AE12339ADC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62D8BC97-98D7-4FF4-8790-AE12339ADC5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{726339F6-DFC5-479B-B0BD-454751B32168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{726339F6-DFC5-479B-B0BD-454751B32168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{726339F6-DFC5-479B-B0BD-454751B32168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{726339F6-DFC5-479B-B0BD-454751B32168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE7A600-42E8-41E9-8F38-51C7661B79D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE7A600-42E8-41E9-8F38-51C7661B79D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE7A600-42E8-41E9-8F38-51C7661B79D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE7A600-42E8-41E9-8F38-51C7661B79D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80458551-C8AE-4648-8BFD-EF718B795341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80458551-C8AE-4648-8BFD-EF718B795341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80458551-C8AE-4648-8BFD-EF718B795341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80458551-C8AE-4648-8BFD-EF718B795341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8295F5E9-8324-404A-A84C-08339FF393E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8295F5E9-8324-404A-A84C-08339FF393E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8295F5E9-8324-404A-A84C-08339FF393E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8295F5E9-8324-404A-A84C-08339FF393E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

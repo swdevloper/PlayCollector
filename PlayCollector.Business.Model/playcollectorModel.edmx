@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PlayCollector.Business.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CollectionItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_Id_Theme" Type="bigint" />
+          <Property Name="FK_Id_Storage" Type="bigint" />
+          <Property Name="FK_Id_Condition" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Setnumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PublishingYear" Type="int" />
+          <Property Name="PurchasePrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Worth" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="WithPackaging" Type="bit" Nullable="false" />
+          <Property Name="WithManual" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Version" Type="nvarchar" MaxLength="50" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Updated" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Condition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Updated" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ItemMedia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_Id_CollectionItem" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PathToFile" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Filename" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Updated" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Storage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Updated" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Theme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Updated" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CollectionItem_Condition">
+          <End Role="Condition" Type="Self.Condition" Multiplicity="0..1" />
+          <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Condition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectionItem">
+              <PropertyRef Name="FK_Id_Condition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionItem_Storage">
+          <End Role="Storage" Type="Self.Storage" Multiplicity="0..1" />
+          <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectionItem">
+              <PropertyRef Name="FK_Id_Storage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionItem_Theme">
+          <End Role="Theme" Type="Self.Theme" Multiplicity="0..1" />
+          <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Theme">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectionItem">
+              <PropertyRef Name="FK_Id_Theme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemMedia_CollectionItem">
+          <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ItemMedia" Type="Self.ItemMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollectionItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemMedia">
+              <PropertyRef Name="FK_Id_CollectionItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PlayCollectorBusinessModelStoreContainer">
+          <EntitySet Name="CollectionItem" EntityType="Self.CollectionItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Condition" EntityType="Self.Condition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemMedia" EntityType="Self.ItemMedia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Storage" EntityType="Self.Storage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Theme" EntityType="Self.Theme" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CollectionItem_Condition" Association="Self.FK_CollectionItem_Condition">
+            <End Role="Condition" EntitySet="Condition" />
+            <End Role="CollectionItem" EntitySet="CollectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionItem_Storage" Association="Self.FK_CollectionItem_Storage">
+            <End Role="Storage" EntitySet="Storage" />
+            <End Role="CollectionItem" EntitySet="CollectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionItem_Theme" Association="Self.FK_CollectionItem_Theme">
+            <End Role="Theme" EntitySet="Theme" />
+            <End Role="CollectionItem" EntitySet="CollectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemMedia_CollectionItem" Association="Self.FK_ItemMedia_CollectionItem">
+            <End Role="CollectionItem" EntitySet="CollectionItem" />
+            <End Role="ItemMedia" EntitySet="ItemMedia" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PlayCollector.Business.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CollectionItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_Id_Theme" Type="Int64" />
+          <Property Name="FK_Id_Storage" Type="Int64" />
+          <Property Name="FK_Id_Condition" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Setnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PublishingYear" Type="Int32" />
+          <Property Name="PurchasePrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Worth" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="WithPackaging" Type="Boolean" Nullable="false" />
+          <Property Name="WithManual" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Updated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Condition" Relationship="Self.FK_CollectionItem_Condition" FromRole="CollectionItem" ToRole="Condition" />
+          <NavigationProperty Name="Storage" Relationship="Self.FK_CollectionItem_Storage" FromRole="CollectionItem" ToRole="Storage" />
+          <NavigationProperty Name="Theme" Relationship="Self.FK_CollectionItem_Theme" FromRole="CollectionItem" ToRole="Theme" />
+          <NavigationProperty Name="ItemMediaSet" Relationship="Self.FK_ItemMedia_CollectionItem" FromRole="CollectionItem" ToRole="ItemMedia" />
+        </EntityType>
+        <EntityType Name="Condition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Updated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CollectionItemSet" Relationship="Self.FK_CollectionItem_Condition" FromRole="Condition" ToRole="CollectionItem" />
+        </EntityType>
+        <EntityType Name="ItemMedia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_Id_CollectionItem" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PathToFile" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Filename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Updated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CollectionItem" Relationship="Self.FK_ItemMedia_CollectionItem" FromRole="ItemMedia" ToRole="CollectionItem" />
+        </EntityType>
+        <EntityType Name="Storage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Updated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CollectionItemSet" Relationship="Self.FK_CollectionItem_Storage" FromRole="Storage" ToRole="CollectionItem" />
+        </EntityType>
+        <EntityType Name="Theme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Updated" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CollectionItemSet" Relationship="Self.FK_CollectionItem_Theme" FromRole="Theme" ToRole="CollectionItem" />
+        </EntityType>
+        <Association Name="FK_CollectionItem_Condition">
+          <End Role="Condition" Type="Self.Condition" Multiplicity="0..1" />
+          <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Condition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectionItem">
+              <PropertyRef Name="FK_Id_Condition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionItem_Storage">
+          <End Role="Storage" Type="Self.Storage" Multiplicity="0..1" />
+          <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectionItem">
+              <PropertyRef Name="FK_Id_Storage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionItem_Theme">
+          <End Role="Theme" Type="Self.Theme" Multiplicity="0..1" />
+          <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Theme">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectionItem">
+              <PropertyRef Name="FK_Id_Theme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemMedia_CollectionItem">
+          <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ItemMedia" Type="Self.ItemMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollectionItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemMedia">
+              <PropertyRef Name="FK_Id_CollectionItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="playcollectorDb" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CollectionItemSet" EntityType="Self.CollectionItem" />
+          <EntitySet Name="ConditionSet" EntityType="Self.Condition" />
+          <EntitySet Name="ItemMediaSet" EntityType="Self.ItemMedia" />
+          <EntitySet Name="StorageSet" EntityType="Self.Storage" />
+          <EntitySet Name="ThemeSet" EntityType="Self.Theme" />
+          <AssociationSet Name="FK_CollectionItem_Condition" Association="Self.FK_CollectionItem_Condition">
+            <End Role="Condition" EntitySet="ConditionSet" />
+            <End Role="CollectionItem" EntitySet="CollectionItemSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionItem_Storage" Association="Self.FK_CollectionItem_Storage">
+            <End Role="Storage" EntitySet="StorageSet" />
+            <End Role="CollectionItem" EntitySet="CollectionItemSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionItem_Theme" Association="Self.FK_CollectionItem_Theme">
+            <End Role="Theme" EntitySet="ThemeSet" />
+            <End Role="CollectionItem" EntitySet="CollectionItemSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemMedia_CollectionItem" Association="Self.FK_ItemMedia_CollectionItem">
+            <End Role="CollectionItem" EntitySet="CollectionItemSet" />
+            <End Role="ItemMedia" EntitySet="ItemMediaSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PlayCollectorBusinessModelStoreContainer" CdmEntityContainer="playcollectorDb">
+          <EntitySetMapping Name="CollectionItemSet">
+            <EntityTypeMapping TypeName="PlayCollector.Business.Model.CollectionItem">
+              <MappingFragment StoreEntitySet="CollectionItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_Id_Theme" ColumnName="FK_Id_Theme" />
+                <ScalarProperty Name="FK_Id_Storage" ColumnName="FK_Id_Storage" />
+                <ScalarProperty Name="FK_Id_Condition" ColumnName="FK_Id_Condition" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Setnumber" ColumnName="Setnumber" />
+                <ScalarProperty Name="PublishingYear" ColumnName="PublishingYear" />
+                <ScalarProperty Name="PurchasePrice" ColumnName="PurchasePrice" />
+                <ScalarProperty Name="Worth" ColumnName="Worth" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="WithPackaging" ColumnName="WithPackaging" />
+                <ScalarProperty Name="WithManual" ColumnName="WithManual" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConditionSet">
+            <EntityTypeMapping TypeName="PlayCollector.Business.Model.Condition">
+              <MappingFragment StoreEntitySet="Condition">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemMediaSet">
+            <EntityTypeMapping TypeName="PlayCollector.Business.Model.ItemMedia">
+              <MappingFragment StoreEntitySet="ItemMedia">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_Id_CollectionItem" ColumnName="FK_Id_CollectionItem" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PathToFile" ColumnName="PathToFile" />
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StorageSet">
+            <EntityTypeMapping TypeName="PlayCollector.Business.Model.Storage">
+              <MappingFragment StoreEntitySet="Storage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThemeSet">
+            <EntityTypeMapping TypeName="PlayCollector.Business.Model.Theme">
+              <MappingFragment StoreEntitySet="Theme">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

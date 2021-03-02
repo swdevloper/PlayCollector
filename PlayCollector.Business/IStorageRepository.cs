@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace PlayCollector.Business
 {
-    public interface IThemeRepository : IGenericRepository<Theme>
+    public interface IStorageRepository : IGenericRepository<Storage>
     {
-        Theme SelectByName(string name);
-        Task<Theme> SelectByNameAsync(string name);
+        Storage SelectByName(string name);
+        Task<Storage> SelectByNameAsync(string name);
 
     }
 }

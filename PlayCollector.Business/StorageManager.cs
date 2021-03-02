@@ -10,65 +10,65 @@ namespace PlayCollector.Business
 
 
 
-    public class ThemeManager
+    public class StorageManager
     {
-        private IThemeRepository _IRepository;
+        private IStorageRepository _IRepository;
         
 
-        public ThemeManager()
+        public StorageManager()
         {
-            _IRepository = new ThemeRepository();
+            _IRepository = new StorageRepository();
            
         }
 
 
-        public ICollection<Theme> Select()
+        public ICollection<Storage> Select()
         {
             return _IRepository.Select();
         }
-        public async Task<ICollection<Theme>> SelectAsync()
+        public async Task<ICollection<Storage>> SelectAsync()
         {
             return await _IRepository.SelectAsync();
         }
 
-        public Theme SelectById(object key)
+        public Storage SelectById(object key)
         {
             return _IRepository.SelectById(key);
         }
-        public async Task<Theme> SelectByIdAsync(object key)
+        public async Task<Storage> SelectByIdAsync(object key)
         {
             return await _IRepository.SelectByIdAsync(key);
         }
 
 
-        public Theme SelectByName(string name)
+        public Storage SelectByName(string name)
         {
             return _IRepository.SelectByName(name);
         }
-        public async Task<Theme> SelectByNameAsync(string name)
+        public async Task<Storage> SelectByNameAsync(string name)
         {
             return await _IRepository.SelectByNameAsync(name);
         }
 
 
 
-        public Theme Insert(Theme item)
+        public Storage Insert(Storage item)
         {
             return _IRepository.Insert(item);
         }
 
-        public async Task<Theme> InsertAsync(Theme item)
+        public async Task<Storage> InsertAsync(Storage item)
         {
             return await _IRepository.InsertAsync(item);
         }
 
 
-        public Theme Update(Theme item, long key)
+        public Storage Update(Storage item, long key)
         {
             return _IRepository.Update(item, key);
         }
 
-        public async Task<Theme> UpdateAsync(Theme item, long key)
+        public async Task<Storage> UpdateAsync(Storage item, long key)
         {
             return await _IRepository.UpdateAsync(item, key);
         }

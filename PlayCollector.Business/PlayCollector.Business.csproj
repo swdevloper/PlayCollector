@@ -64,13 +64,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImportManager.cs" />
+    <Compile Include="IStorageRepository.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="StorageManager.cs" />
     <Compile Include="ThemeManager.cs" />
     <Compile Include="CollectionItemManager.cs" />
+    <Compile Include="StorageRepository.cs" />
     <Compile Include="ThemeRepository.cs" />
     <Compile Include="CollectionItemRepository.cs" />
     <Compile Include="IThemeRepository.cs" />

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PlayCollector.Business
 {
-    public class CollectionItemRepository: GenericRepository<CollectionItem, playcollectorDb>, ICollectionItemRepository
+    public class ThemeRepository : GenericRepository<Theme, playcollectorDb>, IThemeRepository
     {
 
 

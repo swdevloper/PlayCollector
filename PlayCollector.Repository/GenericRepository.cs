@@ -9,6 +9,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Objects;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,10 +97,13 @@ namespace PlayCollector.Repository
             return _dbSet.Find(key);
         }
 
-        public async Task<TEntiy> SelectByIdAsync(object key)
+       public async Task<TEntiy> SelectByIdAsync(object key)
         {
             return await _dbSet.FindAsync(key);
         }
+
+
+
 
 
 
@@ -228,6 +232,9 @@ namespace PlayCollector.Repository
             keyValue = _context.Entry(t).Property(keyField).CurrentValue.ToString();
             return keyValue;
         }
+
+
+
 
 
     }

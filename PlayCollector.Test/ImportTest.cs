@@ -29,15 +29,17 @@ namespace PlayCollector.Test
             ImportManager manager = new ImportManager(fileToImport);
             manager.ImportStarted += Manager_ImportStarted;
             manager.ImportFinished += Manager_ImportFinished;
-
-            
+            manager.ImportError += Manager_ImportError;
+                       
 
             manager.StartImport();
-            
-
-            
+                       
         }
 
+        private void Manager_ImportError(object sender, ImportErrorEventArgs e)
+        {
+            Debug.WriteLine(string.Format("Import error {0}",e.Exception.Message));
+        }
 
         private void Manager_ImportStarted(object sender, EventArgs e)
         {

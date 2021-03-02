@@ -39,19 +39,21 @@ namespace PlayCollector.Business
         public ImportManager(string fileToImport)
         {
             _fileToImport = fileToImport;
-
         }
 
 
         public void StartImport()
         {
-
             //Start protokollieren und event auslösen
             log.Info(string.Format("{0}: Import started", MethodBase.GetCurrentMethod().Name));
             OnImportStarted(new EventArgs());
 
+
             //Excel Daten lesen
             DataSet excelData = GetExcelData(_fileToImport);
+
+
+            //Alle Tabellen aus Excel DataSet durchlaufen und Daten importieren
             foreach (DataTable tab in excelData.Tables)
             {
                 switch (tab.TableName)
@@ -71,13 +73,7 @@ namespace PlayCollector.Business
                     default:
                         break;
                 }
-
-
-
             }
-
-
-            //Alle Tabelle aus der Excel Mappe durchlaufen und Daten importieren
 
 
             //Ende protokollieren und event auslösen
@@ -127,7 +123,12 @@ namespace PlayCollector.Business
         }
 
 
-        //Importiert Daten aus Excel Themen Tabelle und aktualisiert Daten bzw fügt Daten in EntitySet ein
+
+        /// <summary>
+        /// Importiert Daten aus Excel Themen Tabelle und aktualisiert Daten bzw fügt Daten in EntitySet ein
+        /// Inserts or updates theme data from datatable
+        /// </summary>
+        /// <param name="tab">Datatable with theme data</param>
         private void ImportTheme(DataTable tab)
         {
             ThemeManager manager = new ThemeManager();
@@ -151,7 +152,13 @@ namespace PlayCollector.Business
 
         }
 
-        //Importiert Daten aus Excel Storage Tabelle und aktualisiert Daten bzw fügt Daten in EntitySet ein
+
+
+        /// <summary>
+        /// Importiert Daten aus Excel Storage Tabelle und aktualisiert Daten bzw fügt Daten in EntitySet ein
+        /// Inserts or updates storage data from datatable
+        /// </summary>
+        /// <param name="tab">Datatable with theme data</param>
         private void ImportStorage(DataTable tab)
         {
             StorageManager manager = new StorageManager();
@@ -175,15 +182,33 @@ namespace PlayCollector.Business
         }
 
 
-        //Importiert Daten aus Excel Condition Tabelle und aktualisiert Daten bzw fügt Daten in EntitySet ein
+
+        /// <summary>
+        /// Importiert Daten aus Excel Condition Tabelle und aktualisiert Daten bzw fügt Daten in EntitySet ein
+        /// Inserts or updates condition data from datatable
+        /// </summary>
+        /// <param name="tab">Datatable with theme data</param>
         private void ImportCondition(DataTable tab)
         {
+            ConditionManager manager = new ConditionManager();
             for (int i = 1; i < tab.Rows.Count; i++)
             {
                 DataRow dataRow = tab.Rows[i];
                 int id = Convert.ToInt32(dataRow.ItemArray[0]);
                 string name = dataRow.ItemArray[1].ToString();
                 string description = dataRow.ItemArray[2].ToString();
+                Condition condition = manager.SelectById(id);
+                if (condition != null)
+                {
+                    condition.Name = name;
+                    condition.Description = description;
+                    manager.Update(condition, condition.Id);
+                }
+                else
+                {
+                    condition = new Condition { Id = id, Name = name, Description = description };
+                    manager.Insert(condition);
+                }
             }
         }
 
@@ -200,7 +225,6 @@ namespace PlayCollector.Business
             EventHandler handler = ImportFinished;
             handler?.Invoke(this, e);
         }
-
 
         protected virtual void OnImportError(ImportErrorEventArgs e)
         {
